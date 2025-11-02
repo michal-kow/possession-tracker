@@ -1,0 +1,19 @@
+.container {
+  padding: 3.5% 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 4vh;
+}
+
+.topContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 4vh;
+}
+
+@media (max-width: 768px) {
+  .topContainer {
+    flex-direction: column;
+  }
+}
