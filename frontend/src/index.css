@@ -2,12 +2,17 @@
   font-family: "DM Sans", sans-serif;
   --primary-color: #0ab321;
   --secondary-color: #f37c2c;
-  --background-color-light: #eeeeee;
-  --background-color-dark: #222222;
-  --text-color-light: #222222;
-  --text-color-dark: #eeeeee;
-  --grey-light: #dedede;
-  --grey-dark: #323232;
+  --background-color-primary: #eeeeee;
+  --background-color-secondary: #dedede;
+  --text-color-primary: #222222;
+  --text-color-secondary: #444444;
+}
+
+[data-theme="dark"] {
+  --background-color-primary: #222222;
+  --background-color-secondary: #292929;
+  --text-color-primary: #eeeeee;
+  --text-color-secondary: #cccccc;
 }
 
 /* 1. Use a more-intuitive box-sizing model */
