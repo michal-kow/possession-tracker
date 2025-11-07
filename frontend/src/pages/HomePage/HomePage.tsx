@@ -1,16 +1,13 @@
 import { GraphContainer } from "../../components/GraphContainer/GraphContainer";
-import { SeriesContainer } from "../../components/SeriesContainer/SeriesContainer";
+import { MultipleSeriesSelector } from "../../components/MultipleSeriesSelector/MultipleSeriesSelector";
 import { TableContainer } from "../../components/TableContainer/TableContainer";
-import styles from "./HomePage.module.css";
 
 export const HomePage = () => {
   return (
-    <div className={styles.container}>
-      <div className={styles.topContainer}>
-        <SeriesContainer />
-        <TableContainer />
-      </div>
+    <>
+      <MultipleSeriesSelector />
+      <TableContainer />
       <GraphContainer />
-    </div>
+    </>
   );
 };

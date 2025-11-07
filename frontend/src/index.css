@@ -1,6 +1,7 @@
 :root {
   font-family: "DM Sans", sans-serif;
   --primary-color: #0ab321;
+  --primary-color-light: #c9eace;
   --secondary-color: #f37c2c;
   --background-color-primary: #eeeeee;
   --background-color-secondary: #dedede;
@@ -9,6 +10,7 @@
 }
 
 [data-theme="dark"] {
+  --primary-color-light: #263729;
   --background-color-primary: #222222;
   --background-color-secondary: #292929;
   --text-color-primary: #eeeeee;

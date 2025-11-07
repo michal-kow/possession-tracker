@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router";
 import { HomePage } from "./pages/HomePage/HomePage";
-import { SeriesPage } from "./pages/SeriesPage/SeriesPage";
+import { EditPage } from "./pages/EditPage/EditPage";
 import styles from "./App.module.css";
 import { Header } from "./components/Header/Header";
 import axios from "axios";
@@ -11,10 +11,12 @@ const AppContent = () => {
   return (
     <div className={styles.appContainer}>
       <Header />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/series/:id" element={<SeriesPage />} />
-      </Routes>
+      <div className={styles.pageContainer}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/edit" element={<EditPage />} />
+        </Routes>
+      </div>
     </div>
   );
 };

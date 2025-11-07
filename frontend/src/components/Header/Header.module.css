@@ -16,6 +16,32 @@
   font-size: 40px;
   font-weight: 900;
   color: var(--primary-color);
+  cursor: default;
+}
+
+.leftContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 50px;
+}
+
+.links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+
+  & a {
+    color: var(--text-color-primary);
+    font-size: 20px;
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--secondary-color);
+    }
+  }
 }
 
 .rightContainer {
