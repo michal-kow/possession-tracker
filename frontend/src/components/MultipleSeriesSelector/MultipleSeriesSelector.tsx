@@ -2,7 +2,8 @@ import Select, { type MultiValue } from "react-select";
 import { Container } from "../Container/Container";
 import { useSeries } from "../../context/SeriesContext";
 
-type Measurement = {
+export type Measurement = {
+  _id: string;
   timestamp: string;
   value: number;
 };

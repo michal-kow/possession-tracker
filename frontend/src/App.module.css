@@ -1,5 +1,6 @@
 .appContainer {
   min-height: 100vh;
+  overflow: hidden;
   background-color: var(--background-color-secondary);
   color: var(--text-color-primary);
 }

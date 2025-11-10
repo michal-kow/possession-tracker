@@ -6,6 +6,7 @@ import { Header } from "./components/Header/Header";
 import axios from "axios";
 import { ThemeProvider } from "./context/ThemeContext";
 import { SeriesProvider } from "./context/SeriesContext";
+import { CreateSeriesPage } from "./pages/CreateSeriesPage/CreateSeriesPage";
 
 const AppContent = () => {
   return (
@@ -14,6 +15,7 @@ const AppContent = () => {
       <div className={styles.pageContainer}>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/create" element={<CreateSeriesPage />} />
           <Route path="/edit" element={<EditPage />} />
         </Routes>
       </div>

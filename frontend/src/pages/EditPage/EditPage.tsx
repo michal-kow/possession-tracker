@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { SingleSeriesSelector } from "../../components/SingleSeriesSelector/SingleSeriesSelector";
 import type { Series } from "../../components/MultipleSeriesSelector/MultipleSeriesSelector";
-import { EditSeriesForm } from "../../components/EditSeriesForm/EditSeriesForm";
+import { EditSeriesContainer } from "../../components/EditSeriesContainer/EditSeriesContainer";
 
 export const EditPage = () => {
   const [selectedSeries, setSelectedSeries] = useState<
@@ -11,7 +11,12 @@ export const EditPage = () => {
   return (
     <>
       <SingleSeriesSelector setSelectedSeries={setSelectedSeries} />
-      {selectedSeries && <EditSeriesForm selectedSeries={selectedSeries} />}
+      {selectedSeries && (
+        <EditSeriesContainer
+          selectedSeries={selectedSeries}
+          setSelectedSeries={setSelectedSeries}
+        />
+      )}
     </>
   );
 };

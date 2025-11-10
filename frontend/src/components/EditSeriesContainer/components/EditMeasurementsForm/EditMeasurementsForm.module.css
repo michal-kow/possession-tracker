@@ -1,0 +1,66 @@
+.editMeasurements {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.measurementsTable {
+  border-spacing: 0;
+
+  tr {
+    &:nth-child(even) {
+      background-color: var(--background-color-secondary);
+    }
+
+    &:hover {
+      background-color: var(--primary-color-light);
+    }
+
+    th {
+      background-color: var(--background-color-secondary);
+    }
+  }
+
+  th,
+  td {
+    padding: 4px 12px;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  input {
+    width: 100px;
+    background-color: var(--input-background-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 50px;
+    padding: 4px 14px;
+  }
+}
+
+.saveButton {
+  border: 3px solid var(--primary-color);
+  border-radius: 50px;
+  padding: 2px 8px;
+  font-weight: 700;
+  background-color: transparent;
+  color: var(--primary-color);
+  transition: background-color 0.2s, color 0.2s;
+
+  &:hover {
+    background-color: var(--primary-color);
+    cursor: pointer;
+    color: #eeeeee;
+  }
+
+  &:disabled {
+    border-color: var(--disabled-color);
+    color: var(--disabled-color);
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: transparent;
+      color: var(--disabled-color);
+    }
+  }
+}

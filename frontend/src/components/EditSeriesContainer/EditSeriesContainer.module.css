@@ -1,0 +1,12 @@
+.editSeriesForm {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .editSeriesForm {
+    flex-direction: column;
+    gap: 16px;
+  }
+}

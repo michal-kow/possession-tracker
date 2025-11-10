@@ -7,6 +7,8 @@
   --background-color-secondary: #dedede;
   --text-color-primary: #222222;
   --text-color-secondary: #444444;
+  --input-background-color: #ffffff;
+  --disabled-color: #aaaaaa;
 }
 
 [data-theme="dark"] {
@@ -15,6 +17,8 @@
   --background-color-secondary: #292929;
   --text-color-primary: #eeeeee;
   --text-color-secondary: #cccccc;
+  --input-background-color: #444444;
+  --disabled-color: #555555;
 }
 
 /* 1. Use a more-intuitive box-sizing model */

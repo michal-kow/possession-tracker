@@ -1,5 +1,6 @@
 .container {
   width: 100%;
+  height: fit-content;
   padding: 24px 30px;
   background-color: var(--background-color-primary);
   border-radius: 25px;

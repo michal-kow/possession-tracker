@@ -6,10 +6,7 @@ import {
   type FC,
   type PropsWithChildren,
 } from "react";
-import type {
-  Series,
-  SeriesWithNormalizedTimestamps,
-} from "../components/MultipleSeriesSelector/MultipleSeriesSelector";
+import type { Series } from "../components/MultipleSeriesSelector/MultipleSeriesSelector";
 import { getAllSeries } from "../services/api/series";
 
 const SeriesContext = createContext({
@@ -17,40 +14,25 @@ const SeriesContext = createContext({
   selectedSeries: [] as Series[],
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setSelectedSeries: (_series: Series[]) => {},
-  selectedSeriesWithNormalizedTimestamps:
-    [] as SeriesWithNormalizedTimestamps[],
+  refetchSeries: async () => {},
 });
 
 export const SeriesProvider: FC<PropsWithChildren> = ({ children }) => {
   const [allSeries, setAllSeries] = useState<Series[]>([]);
   const [selectedSeries, setSelectedSeries] = useState<Series[]>([]);
 
+  const fetchSeries = async () => {
+    const response = await getAllSeries();
+    setAllSeries(response.data);
+  };
+
+  const refetchSeries = async () => {
+    fetchSeries();
+  };
+
   useEffect(() => {
-    const fetchSeries = async () => {
-      const data = await getAllSeries();
-      setAllSeries(data);
-    };
     fetchSeries();
   }, []);
-
-  const selectedSeriesWithNormalizedTimestamps = selectedSeries.map(
-    (series) => {
-      const measurementsWithNormalizedTimestamps = series.measurements.map(
-        (measurement) => ({
-          ...measurement,
-          timestamp:
-            (new Date(measurement.timestamp).getTime() -
-              new Date(series.matchDate).getTime()) /
-            1000 /
-            60,
-        })
-      );
-      return {
-        ...series,
-        measurements: measurementsWithNormalizedTimestamps,
-      };
-    }
-  );
 
   return (
     <SeriesContext.Provider
@@ -58,7 +40,7 @@ export const SeriesProvider: FC<PropsWithChildren> = ({ children }) => {
         allSeries,
         selectedSeries,
         setSelectedSeries,
-        selectedSeriesWithNormalizedTimestamps,
+        refetchSeries,
       }}
     >
       {children}

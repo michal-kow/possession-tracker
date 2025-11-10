@@ -7,50 +7,50 @@
 .table {
   width: 100%;
   overflow-x: scroll;
-}
 
-table {
-  border-spacing: 0;
-  padding-bottom: 10px;
-}
+  table {
+    border-spacing: 0;
+    padding-bottom: 10px;
+  }
 
-tr {
-  &:nth-child(odd) {
-    background-color: var(--background-color-secondary);
-
-    & > td:first-child {
+  tr {
+    &:nth-child(odd) {
       background-color: var(--background-color-secondary);
+
+      & > td:first-child {
+        background-color: var(--background-color-secondary);
+      }
     }
-  }
 
-  &:nth-child(even) > td:first-child {
-    background-color: var(--background-color-primary);
-  }
+    &:nth-child(even) > td:first-child {
+      background-color: var(--background-color-primary);
+    }
 
-  &:not(:first-child):hover {
-    background-color: var(--primary-color-light);
-
-    & > td:first-child {
+    &:not(:first-child):hover {
       background-color: var(--primary-color-light);
+
+      & > td:first-child {
+        background-color: var(--primary-color-light);
+      }
     }
   }
-}
 
-th:first-child,
-td:first-child {
-  position: sticky;
-  left: 0;
-  border-right: 2px solid var(--primary-color);
-}
+  th:first-child,
+  td:first-child {
+    position: sticky;
+    left: 0;
+    border-right: 2px solid var(--primary-color);
+  }
 
-th:first-child {
-  background-color: var(--background-color-secondary);
-  min-width: 100px;
-}
+  th:first-child {
+    background-color: var(--background-color-secondary);
+    min-width: 100px;
+  }
 
-th,
-td {
-  padding: 4px 12px;
-  white-space: nowrap;
-  text-align: center;
+  th,
+  td {
+    padding: 4px 12px;
+    white-space: nowrap;
+    text-align: center;
+  }
 }

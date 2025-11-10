@@ -1,9 +1,13 @@
 import { useSeries } from "../../context/SeriesContext";
+import { normalizeTimestamps } from "../../helpers/normalizeTimestamps";
 import { Container } from "../Container/Container";
 import styles from "./TableContainer.module.css";
 
 export const TableContainer = () => {
-  const { selectedSeriesWithNormalizedTimestamps } = useSeries();
+  const { selectedSeries } = useSeries();
+
+  const selectedSeriesWithNormalizedTimestamps =
+    normalizeTimestamps(selectedSeries);
 
   const minutes: number[] = Array.from({ length: 90 }, (_, i) => i + 1);
 

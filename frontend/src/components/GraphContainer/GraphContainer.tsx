@@ -5,10 +5,15 @@ import { useSeries } from "../../context/SeriesContext";
 import { Container } from "../Container/Container";
 import styles from "./GraphContainer.module.css";
 import { colors } from "../../colors";
+import { useTheme } from "../../context/ThemeContext";
+import { normalizeTimestamps } from "../../helpers/normalizeTimestamps";
 
 export const GraphContainer = () => {
-  const { selectedSeries, selectedSeriesWithNormalizedTimestamps } =
-    useSeries();
+  const { theme } = useTheme();
+  const { selectedSeries } = useSeries();
+
+  const selectedSeriesWithNormalizedTimestamps =
+    normalizeTimestamps(selectedSeries);
 
   const [filterTime, setFilterTime] = useState<[number, number]>([1, 90]);
 
@@ -100,24 +105,27 @@ export const GraphContainer = () => {
           series={formattedSelectedSeries}
           height={300}
           grid={{ vertical: true, horizontal: true }}
-          //TODO: change colors based on theme
-          // sx={{
-          //   "& .MuiChartsLegend-series": {
-          //     color: "white",
-          //   },
+          sx={
+            theme === "dark"
+              ? {
+                  "& .MuiChartsLegend-series": {
+                    color: "white",
+                  },
 
-          //   "& text": {
-          //     fill: "white",
-          //   },
+                  "& text": {
+                    fill: "white",
+                  },
 
-          //   "& g > line, .MuiChartsAxis-tick, .MuiChartsAxis-line": {
-          //     stroke: "rgba(255, 255, 255, 0.2)",
-          //   },
+                  "& g > line, .MuiChartsAxis-tick, .MuiChartsAxis-line": {
+                    stroke: "rgba(255, 255, 255, 0.2)",
+                  },
 
-          //   "& .MuiChartsAxis-tickLabel": {
-          //     fill: "white",
-          //   },
-          // }}
+                  "& .MuiChartsAxis-tickLabel": {
+                    fill: "white",
+                  },
+                }
+              : {}
+          }
         />
       </div>
     </Container>
