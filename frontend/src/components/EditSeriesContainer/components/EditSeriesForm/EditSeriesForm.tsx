@@ -1,13 +1,17 @@
 import { useState, type FormEvent } from "react";
 import type { Series } from "../../../MultipleSeriesSelector/MultipleSeriesSelector";
 import styles from "./EditSeriesForm.module.css";
-import { updateSeries } from "../../../../services/api/series";
+import { deleteSeries, updateSeries } from "../../../../services/api/series";
 
 type SeriesFormProps = {
   selectedSeries: Series | null;
+  setSelectedSeries: (series: Series | null) => void;
 };
 
-export const EditSeriesForm = ({ selectedSeries }: SeriesFormProps) => {
+export const EditSeriesForm = ({
+  selectedSeries,
+  setSelectedSeries,
+}: SeriesFormProps) => {
   const [name, setName] = useState(selectedSeries?.name ?? "");
   const [color, setColor] = useState(selectedSeries?.color ?? "");
   const [matchDate, setMatchDate] = useState(selectedSeries?.matchDate ?? "");
@@ -98,6 +102,11 @@ export const EditSeriesForm = ({ selectedSeries }: SeriesFormProps) => {
     showMessage("Series updated successfully!", "green");
   };
 
+  const handleDeleteSeries = async () => {
+    await deleteSeries(selectedSeries!._id);
+    setSelectedSeries(null);
+  };
+
   return (
     <div className={styles.editSeries}>
       <h3 className={styles.title}>Edit series</h3>
@@ -147,8 +156,18 @@ export const EditSeriesForm = ({ selectedSeries }: SeriesFormProps) => {
             onChange={(e) => setMaxValue(e.target.value)}
           />
         </div>
-        <button type="submit" className={styles.submitButton}>
+        <button
+          type="submit"
+          className={`${styles.button} ${styles.submitButton}`}
+        >
           Save changes
+        </button>
+        <button
+          type="button"
+          className={`${styles.button} ${styles.deleteButton}`}
+          onClick={handleDeleteSeries}
+        >
+          Delete series
         </button>
       </form>
       {message && (

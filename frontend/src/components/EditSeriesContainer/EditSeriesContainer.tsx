@@ -16,7 +16,10 @@ export const EditSeriesContainer = ({
   return (
     <div className={styles.editSeriesForm}>
       <Container>
-        <EditSeriesForm selectedSeries={selectedSeries} />
+        <EditSeriesForm
+          selectedSeries={selectedSeries}
+          setSelectedSeries={setSelectedSeries}
+        />
       </Container>
       <Container>
         <EditMeasurementsForm

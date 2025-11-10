@@ -18,6 +18,12 @@ const updateSeries = async (id: string, data: UpdateSeries) => {
   return response;
 };
 
+const deleteSeries = async (id: string) => {
+  const response = await axios.delete(`/series/${id}`);
+  console.log(response.status, response.data);
+  return response;
+};
+
 const createMeasurement = async (
   seriesId: string,
   data: { timestamp: string; value: number }
@@ -44,6 +50,7 @@ export {
   getAllSeries,
   updateSeries,
   createSeries,
+  deleteSeries,
   createMeasurement,
   updateMeasurement,
 };

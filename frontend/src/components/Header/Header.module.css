@@ -67,7 +67,8 @@
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: var(--secondary-color);
+    background-color: var(--text-color-secondary);
+    color: var(--background-color-secondary);
   }
 }
 

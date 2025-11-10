@@ -90,7 +90,12 @@ export const CreateSeriesForm = () => {
       return;
     }
 
-    showMessage("Series updated successfully!", "green");
+    showMessage("Series created successfully!", "green");
+    setName("");
+    setColor("");
+    setMatchDate("");
+    setMinValue("");
+    setMaxValue("");
   };
 
   return (

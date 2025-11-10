@@ -9,6 +9,7 @@
   --text-color-secondary: #444444;
   --input-background-color: #ffffff;
   --disabled-color: #aaaaaa;
+  --error-color: #e41b1b;
 }
 
 [data-theme="dark"] {
