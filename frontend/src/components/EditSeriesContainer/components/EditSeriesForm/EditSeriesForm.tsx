@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import type { Series } from "../../../MultipleSeriesSelector/MultipleSeriesSelector";
 import styles from "./EditSeriesForm.module.css";
 import { deleteSeries, updateSeries } from "../../../../services/api/series";
@@ -18,6 +18,16 @@ export const EditSeriesForm = ({
   const [minValue, setMinValue] = useState(selectedSeries?.minValue ?? "");
   const [maxValue, setMaxValue] = useState(selectedSeries?.maxValue ?? "");
   const [message, setMessage] = useState({ msg: "", color: "" });
+
+  useEffect(() => {
+    if (selectedSeries) {
+      setName(selectedSeries.name);
+      setColor(selectedSeries.color);
+      setMatchDate(selectedSeries.matchDate);
+      setMinValue(selectedSeries.minValue);
+      setMaxValue(selectedSeries.maxValue);
+    }
+  }, [selectedSeries]);
 
   const showMessage = (msg: string, color: string) => {
     setMessage({ msg, color });

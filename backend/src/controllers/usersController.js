@@ -1,4 +1,6 @@
 import User from "../models/User.js";
+import bcrypt from "bcrypt";
+import { createAccessToken } from "../utils/createToken.js";
 
 const getUsers = async (_, res) => {
   try {
@@ -9,4 +11,35 @@ const getUsers = async (_, res) => {
   }
 };
 
-export { getUsers };
+const createUser = async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    if (!username || !password) {
+      return res
+        .status(400)
+        .json({ message: "Username and password are required" });
+    }
+
+    if (await User.findOne({ username })) {
+      return res.status(409).json({ message: "Username already exists" });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(password, salt);
+
+    const newUser = new User({ username, passwordHash });
+    await newUser.save();
+    const token = createAccessToken(res, newUser._id);
+
+    res
+      .status(201)
+      .json({ message: "User created successfully", user: newUser, token });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error creating user", error: error.message });
+  }
+};
+
+export { getUsers, createUser };

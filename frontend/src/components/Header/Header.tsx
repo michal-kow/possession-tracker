@@ -1,15 +1,33 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useTheme } from "../../context/ThemeContext";
 import styles from "./Header.module.css";
 import { CgMoon, CgSun } from "react-icons/cg";
 import { useState } from "react";
+import { useUser } from "../../context/UserContext";
+import { logout } from "../../services/api/auth";
 
 export const Header = () => {
   const { theme, toggleTheme } = useTheme();
+  const { username, setUsername, setAccessToken } = useUser();
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleHamburgerClick = () => {
     setIsHamburgerOpen((prev) => !prev);
+  };
+
+  const handleLogoutClick = async () => {
+    try {
+      const response = await logout();
+      if (response.status === 200) {
+        setUsername("");
+        setAccessToken(null);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log("Logout failed", error);
+    }
   };
 
   return (
@@ -26,7 +44,16 @@ export const Header = () => {
         <button className={styles.toggleButton} onClick={toggleTheme}>
           {theme === "light" ? <CgMoon /> : <CgSun />}
         </button>
-        <div className={styles.account}>account</div>
+        <div className={styles.account}>
+          {username ? (
+            <>
+              <span>{username}</span>
+              <button onClick={handleLogoutClick}>Log out</button>
+            </>
+          ) : (
+            <Link to="/login">Log in</Link>
+          )}
+        </div>
 
         <button
           className={styles.hamburgerButton}
@@ -44,7 +71,18 @@ export const Header = () => {
           <button className={styles.toggleButton} onClick={toggleTheme}>
             {theme === "light" ? <CgMoon /> : <CgSun />}
           </button>
-          <div className={styles.account}>account</div>
+          <div className={styles.account}>
+            {username ? (
+              <>
+                <span>{username}</span>
+                <button onClick={handleLogoutClick}>Log out</button>
+              </>
+            ) : (
+              <Link to="/login" onClick={() => setIsHamburgerOpen(false)}>
+                Log in
+              </Link>
+            )}
+          </div>
           <div className={styles.links}>
             <Link to="/" onClick={() => setIsHamburgerOpen(false)}>
               Analyze

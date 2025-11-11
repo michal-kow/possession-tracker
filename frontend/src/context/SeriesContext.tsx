@@ -1,7 +1,9 @@
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
   type FC,
   type PropsWithChildren,
@@ -9,11 +11,17 @@ import {
 import type { Series } from "../components/MultipleSeriesSelector/MultipleSeriesSelector";
 import { getAllSeries } from "../services/api/series";
 
-const SeriesContext = createContext({
-  allSeries: [] as Series[],
-  selectedSeries: [] as Series[],
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setSelectedSeries: (_series: Series[]) => {},
+type SeriesContextType = {
+  allSeries: Series[];
+  selectedSeries: Series[];
+  setSelectedSeries: (series: Series[]) => void;
+  refetchSeries: () => Promise<void>;
+};
+
+const SeriesContext = createContext<SeriesContextType>({
+  allSeries: [],
+  selectedSeries: [],
+  setSelectedSeries: () => {},
   refetchSeries: async () => {},
 });
 
@@ -21,30 +29,32 @@ export const SeriesProvider: FC<PropsWithChildren> = ({ children }) => {
   const [allSeries, setAllSeries] = useState<Series[]>([]);
   const [selectedSeries, setSelectedSeries] = useState<Series[]>([]);
 
-  const fetchSeries = async () => {
+  const refetchSeries = useCallback(async () => {
+    console.log("Refetching series...");
     const response = await getAllSeries();
     setAllSeries(response.data);
-  };
-
-  const refetchSeries = async () => {
-    fetchSeries();
-  };
+  }, []);
 
   useEffect(() => {
+    const fetchSeries = async () => {
+      const response = await getAllSeries();
+      setAllSeries(response.data);
+    };
     fetchSeries();
   }, []);
 
+  const value = useMemo(
+    () => ({
+      allSeries,
+      selectedSeries,
+      setSelectedSeries,
+      refetchSeries,
+    }),
+    [allSeries, refetchSeries, selectedSeries]
+  );
+
   return (
-    <SeriesContext.Provider
-      value={{
-        allSeries,
-        selectedSeries,
-        setSelectedSeries,
-        refetchSeries,
-      }}
-    >
-      {children}
-    </SeriesContext.Provider>
+    <SeriesContext.Provider value={value}>{children}</SeriesContext.Provider>
   );
 };
 

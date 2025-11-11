@@ -3,20 +3,36 @@ import { HomePage } from "./pages/HomePage/HomePage";
 import { EditPage } from "./pages/EditPage/EditPage";
 import styles from "./App.module.css";
 import { Header } from "./components/Header/Header";
-import axios from "axios";
 import { ThemeProvider } from "./context/ThemeContext";
 import { SeriesProvider } from "./context/SeriesContext";
 import { CreateSeriesPage } from "./pages/CreateSeriesPage/CreateSeriesPage";
+import { LoginPage } from "./pages/LoginPage/LoginPage";
+import { UserProvider, useUser } from "./context/UserContext";
+import { SignUpPage } from "./pages/SignUpPage/SignUpPage";
+import { attachAuthInterceptor } from "./services/api/axios";
+import { useEffect } from "react";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 const AppContent = () => {
+  const { accessToken } = useUser();
+
+  useEffect(() => {
+    attachAuthInterceptor(() => accessToken);
+  }, [accessToken]);
+
   return (
     <div className={styles.appContainer}>
       <Header />
       <div className={styles.pageContainer}>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/create" element={<CreateSeriesPage />} />
-          <Route path="/edit" element={<EditPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="*" element={<HomePage />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/create" element={<CreateSeriesPage />} />
+            <Route path="/edit" element={<EditPage />} />
+          </Route>
         </Routes>
       </div>
     </div>
@@ -24,12 +40,12 @@ const AppContent = () => {
 };
 
 function App() {
-  axios.defaults.baseURL = "http://localhost:3000/api"; //TODO: move to env variable, handle different environments
-
   return (
     <ThemeProvider>
       <SeriesProvider>
-        <AppContent />
+        <UserProvider>
+          <AppContent />
+        </UserProvider>
       </SeriesProvider>
     </ThemeProvider>
   );

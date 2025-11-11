@@ -109,6 +109,7 @@ export const CreateSeriesForm = () => {
             id="series-name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            placeholder="Poland vs Spain"
           />
         </div>
         <div className={styles.inputGroup}>
@@ -118,6 +119,7 @@ export const CreateSeriesForm = () => {
             id="series-color"
             value={color}
             onChange={(e) => setColor(e.target.value)}
+            placeholder="#aa44ff"
           />
         </div>
         <div className={styles.inputGroup}>
@@ -127,6 +129,7 @@ export const CreateSeriesForm = () => {
             id="series-match-date"
             value={matchDate}
             onChange={(e) => setMatchDate(e.target.value)}
+            placeholder="2024-06-15T18:00:00Z"
           />
         </div>
         <div className={styles.inputGroup}>
@@ -136,6 +139,7 @@ export const CreateSeriesForm = () => {
             id="series-min-value"
             value={minValue}
             onChange={(e) => setMinValue(e.target.value)}
+            placeholder="0"
           />
         </div>
         <div className={styles.inputGroup}>
@@ -145,6 +149,7 @@ export const CreateSeriesForm = () => {
             id="series-max-value"
             value={maxValue}
             onChange={(e) => setMaxValue(e.target.value)}
+            placeholder="100"
           />
         </div>
         <button type="submit" className={styles.submitButton}>

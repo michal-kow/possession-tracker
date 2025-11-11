@@ -95,6 +95,16 @@ export const EditMeasurementsForm = ({
     );
     if (!measurement) return;
 
+    if (
+      (selectedSeries?.maxValue &&
+        measurement.value > selectedSeries?.maxValue) ||
+      (selectedSeries?.minValue && measurement.value < selectedSeries?.minValue)
+    ) {
+      return alert(
+        `Value must be between ${selectedSeries.minValue} and ${selectedSeries.maxValue}`
+      );
+    }
+
     const savedMeasurementIndex = savedSeries?.measurements.findIndex(
       (m) => normalizeTimestamp(savedSeries, m.timestamp) === minute
     );
