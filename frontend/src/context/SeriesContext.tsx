@@ -16,6 +16,8 @@ type SeriesContextType = {
   selectedSeries: Series[];
   setSelectedSeries: (series: Series[]) => void;
   refetchSeries: () => Promise<void>;
+  highlightedAxis: { axisId: string; dataIndex: number }[];
+  setHighlightedAxis: (axis: { axisId: string; dataIndex: number }[]) => void;
 };
 
 const SeriesContext = createContext<SeriesContextType>({
@@ -23,11 +25,19 @@ const SeriesContext = createContext<SeriesContextType>({
   selectedSeries: [],
   setSelectedSeries: () => {},
   refetchSeries: async () => {},
+  highlightedAxis: [],
+  setHighlightedAxis: () => {},
 });
 
 export const SeriesProvider: FC<PropsWithChildren> = ({ children }) => {
   const [allSeries, setAllSeries] = useState<Series[]>([]);
   const [selectedSeries, setSelectedSeries] = useState<Series[]>([]);
+  const [highlightedAxis, setHighlightedAxis] = useState([
+    {
+      axisId: "",
+      dataIndex: -1,
+    },
+  ]);
 
   const refetchSeries = useCallback(async () => {
     console.log("Refetching series...");
@@ -49,8 +59,16 @@ export const SeriesProvider: FC<PropsWithChildren> = ({ children }) => {
       selectedSeries,
       setSelectedSeries,
       refetchSeries,
+      highlightedAxis,
+      setHighlightedAxis,
     }),
-    [allSeries, refetchSeries, selectedSeries]
+    [
+      allSeries,
+      refetchSeries,
+      selectedSeries,
+      highlightedAxis,
+      setHighlightedAxis,
+    ]
   );
 
   return (

@@ -10,7 +10,7 @@ import { normalizeTimestamps } from "../../helpers/normalizeTimestamps";
 
 export const GraphContainer = () => {
   const { theme } = useTheme();
-  const { selectedSeries } = useSeries();
+  const { selectedSeries, highlightedAxis } = useSeries();
 
   const selectedSeriesWithNormalizedTimestamps =
     normalizeTimestamps(selectedSeries);
@@ -30,6 +30,7 @@ export const GraphContainer = () => {
 
   const formattedSelectedSeries = selectedSeriesWithNormalizedTimestamps.map(
     (series) => ({
+      id: series._id,
       label: `${series.name} - ${new Date(
         series.matchDate
       ).toLocaleDateString()}`,
@@ -84,6 +85,7 @@ export const GraphContainer = () => {
         <LineChart
           yAxis={[
             {
+              id: "y-axis",
               // eslint-disable-next-line @typescript-eslint/no-unused-vars
               domainLimit: (_min, _max) => ({
                 min: getLimitValuesForAllSeries().min ?? 0,
@@ -94,6 +96,7 @@ export const GraphContainer = () => {
           ]}
           xAxis={[
             {
+              id: "x-axis",
               domainLimit: (min, max) => ({
                 min: filterTime[0] ?? min,
                 max: filterTime[1] ?? max,
@@ -102,6 +105,9 @@ export const GraphContainer = () => {
               label: "Time [min]",
             },
           ]}
+          {...(highlightedAxis[0].axisId !== "" && {
+            highlightedAxis: highlightedAxis,
+          })}
           series={formattedSelectedSeries}
           height={300}
           grid={{ vertical: true, horizontal: true }}

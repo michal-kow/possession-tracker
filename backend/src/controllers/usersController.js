@@ -42,4 +42,27 @@ const createUser = async (req, res) => {
   }
 };
 
-export { getUsers, createUser };
+const updatePassword = async (req, res) => {
+  const { userId } = req.params;
+  const { newPassword } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(newPassword, salt);
+    user.passwordHash = passwordHash;
+    await user.save();
+
+    res.status(200).json({ message: "Password updated successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error updating password", error: error.message });
+  }
+};
+
+export { getUsers, createUser, updatePassword };

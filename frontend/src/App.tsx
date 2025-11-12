@@ -12,6 +12,7 @@ import { SignUpPage } from "./pages/SignUpPage/SignUpPage";
 import { attachAuthInterceptor } from "./services/api/axios";
 import { useEffect } from "react";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import { ChangePassword } from "./pages/ChangePassword/ChangePassword";
 
 const AppContent = () => {
   const { accessToken } = useUser();
@@ -32,6 +33,7 @@ const AppContent = () => {
           <Route element={<ProtectedRoute />}>
             <Route path="/create" element={<CreateSeriesPage />} />
             <Route path="/edit" element={<EditPage />} />
+            <Route path="/change-password" element={<ChangePassword />} />
           </Route>
         </Routes>
       </div>

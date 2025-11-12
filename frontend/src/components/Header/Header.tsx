@@ -49,6 +49,7 @@ export const Header = () => {
             <>
               <span>{username}</span>
               <button onClick={handleLogoutClick}>Log out</button>
+              <Link to="/change-password">Change Password</Link>
             </>
           ) : (
             <Link to="/login">Log in</Link>
@@ -76,6 +77,12 @@ export const Header = () => {
               <>
                 <span>{username}</span>
                 <button onClick={handleLogoutClick}>Log out</button>
+                <Link
+                  to="/change-password"
+                  onClick={() => setIsHamburgerOpen(false)}
+                >
+                  Change Password
+                </Link>
               </>
             ) : (
               <Link to="/login" onClick={() => setIsHamburgerOpen(false)}>

@@ -54,3 +54,18 @@
     text-align: center;
   }
 }
+
+@media print {
+  .table {
+    font-size: 11px;
+
+    tr {
+      display: block;
+      float: left;
+    }
+    th,
+    td {
+      display: block;
+    }
+  }
+}

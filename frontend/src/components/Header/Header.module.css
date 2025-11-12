@@ -86,7 +86,9 @@ a {
   align-items: center;
   gap: 10px;
 
-  button {
+  button,
+  a {
+    font-size: 16px;
     background: none;
     border: none;
     color: var(--text-color-primary);
@@ -169,7 +171,8 @@ a {
       gap: 4px;
       align-items: flex-end;
 
-      button {
+      button,
+      a {
         font-size: 20px;
       }
     }

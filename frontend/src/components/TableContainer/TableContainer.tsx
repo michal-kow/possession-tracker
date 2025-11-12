@@ -4,7 +4,7 @@ import { Container } from "../Container/Container";
 import styles from "./TableContainer.module.css";
 
 export const TableContainer = () => {
-  const { selectedSeries } = useSeries();
+  const { selectedSeries, setHighlightedAxis } = useSeries();
 
   const selectedSeriesWithNormalizedTimestamps =
     normalizeTimestamps(selectedSeries);
@@ -28,10 +28,30 @@ export const TableContainer = () => {
               <tr key={series.name}>
                 <td>{series.name}</td>
                 {minutes.map((minute) => {
-                  const value =
-                    series.measurements.find((m) => m.timestamp === minute)
-                      ?.value ?? "-";
-                  return <td key={minute}>{value}</td>;
+                  const measurement = series.measurements.find(
+                    (m) => m.timestamp === minute
+                  );
+                  const value = measurement?.value ?? "-";
+                  return (
+                    <td
+                      key={minute}
+                      style={{ cursor: measurement ? "pointer" : "default" }}
+                      onClick={() =>
+                        setHighlightedAxis(
+                          series?._id && measurement?._id
+                            ? [
+                                {
+                                  axisId: "x-axis",
+                                  dataIndex: minutes.indexOf(minute),
+                                },
+                              ]
+                            : []
+                        )
+                      }
+                    >
+                      {value}
+                    </td>
+                  );
                 })}
               </tr>
             ))}
