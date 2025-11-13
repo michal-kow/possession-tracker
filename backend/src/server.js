@@ -7,6 +7,8 @@ import { connectDB } from "./config/db.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import path from "path";
+import swaggerUi from "swagger-ui-express";
+import swaggerJsdoc from "swagger-jsdoc";
 
 dotenv.config();
 
@@ -24,6 +26,34 @@ if (process.env.NODE_ENV !== "production") {
     })
   );
 }
+
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Possession Tracker API",
+      version: "1.0.0",
+      description: "API documentation generated automatically with Swagger",
+    },
+    servers: [
+      process.env.NODE_ENV === "production"
+        ? {
+            url: "https://possession-tracker.onrender.com/api",
+            description: "Production server",
+          }
+        : {
+            url: "http://localhost:" + PORT + "/api",
+            description: "Development server",
+          },
+    ],
+  },
+  // Path(s) to the files that contain Swagger annotations
+  apis: ["./src/routes/*.js", "./src/models/*.js"],
+};
+
+const swaggerSpec = swaggerJsdoc(options);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/api/series", seriesRoutes);
 app.use("/api/users", usersRoutes);
